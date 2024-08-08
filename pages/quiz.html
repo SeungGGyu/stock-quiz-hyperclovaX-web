@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Quiz Generator</title>
+    <link rel="stylesheet" href="styles/quiz.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="glossary.html">용어 사전</a>
+            <a href="community.html">Community</a>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h1>주식 퀴즈에 도전하세요!</h1>
+            <p>가장 최신의 뉴스로 생성한 퀴즈를 풀며</br>실시간 주식 시장을 파악합시다!</p>
+            <div class="form-group">
+                <label for="age">투자자 나이:</label>
+                <input type="number" id="age" min="0" max="120" value="25">
+            </div>
+            <div class="form-group">
+                <label for="year">투자 경력 (년):</label>
+                <input type="number" id="year" min="0" max="100" value="1">
+            </div>
+            <div class="form-group">
+                <label for="keyword">보유 종목: </label>
+                <input type="text" id="keyword" placeholder="Enter owned stock">
+            </div>
+            <button id="generate-quiz">퀴즈 생성 시작</button>
+            <div id="news-titles"></div>
+            <div id="quiz-container" class="hidden">
+                <h2 id="question"></h2>
+                <div id="choices"></div>
+                <button id="submit-answer">Submit</button>
+                <div id="result"></div>
+                <div id="explanation"></div>
+            </div>
+            <div id="news-links"></div>
+        </div>
+    </main>
+    <script src="scripts/quiz.js"></script>
+</body>
+</html>
