@@ -1,130 +1,68 @@
-document.getElementById('generate-quiz').addEventListener('click', async () => {
+document.getElementById('generate-quiz').addEventListener('click', function() {
     const age = document.getElementById('age').value;
     const year = document.getElementById('year').value;
     const keyword = document.getElementById('keyword').value;
+    
+    if (keyword === "" || age === "" || year === "") {
+        alert("모든 필드를 입력하세요");
+        return;
+    }
 
-    // Run the Python script and get news data
-    await fetch(`/run_news_scraper?keyword=${keyword}`);
-    const newsData = await fetch('/news_data.json').then(response => response.json());
-    displayNewsTitles(newsData.titles);
+    // Clear previous results
+    document.getElementById('news-titles').innerHTML = "";
+    document.getElementById('quiz-container').classList.add('hidden');
 
-    // Generate Quiz
-    const quizData = await generateQuiz({
-        age,
-        year,
-        keyword,
-        articles: newsData.contents.join(" ")
-    });
-    displayQuiz(quizData);
-});
+    // Display loading message
+    document.getElementById('news-titles').innerText = "퀴즈를 생성하는 중입니다...";
 
-async function generateQuiz(data) {
-    const response = await fetch('YOUR_API_ENDPOINT', {
+    fetch('/generate_quiz', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
-    });
-    const result = await response.json();
-    return parseResponse(result);
-}
+        body: JSON.stringify({ age: age, year: year, keyword: keyword }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            document.getElementById('news-titles').innerText = data.error;
+        } else {
+            // Display the quiz
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('news-titles').innerHTML = ""; // Clear loading message
 
-async function generateQuiz(data) {
-    const response = await fetch('YOUR_API_ENDPOINT', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-    const result = await response.json();
-    return parseResponse(result);
-}
+            // Set the question
+            document.getElementById('question').innerText = data["오늘의 질문"];
+            const choicesContainer = document.getElementById('choices');
+            choicesContainer.innerHTML = '';
 
-function parseResponse(data) {
-    const lines = data.split('\n');
-    const parsedData = {
-        question: "",
-        choices: [],
-        answer: "",
-        explanation: ""
-    };
+            // Set the choices
+            for (let i = 1; i <= 4; i++) {
+                const choice = document.createElement('div');
+                choice.innerHTML = `<input type="radio" name="choice" value="${i}"> ${data[i.toString()]}`;
+                choicesContainer.appendChild(choice);
+            }
 
-    lines.forEach(line => {
-        if (line.startsWith("오늘의 질문")) {
-            parsedData.question = line;
-        } else if (line.startsWith("1.")) {
-            parsedData.choices.push(line);
-        } else if (line.startsWith("2.")) {
-            parsedData.choices.push(line);
-        } else if (line.startsWith("3.")) {
-            parsedData.choices.push(line);
-        } else if (line.startsWith("4.")) {
-            parsedData.choices.push(line);
-        } else if (line.startsWith("정답")) {
-            parsedData.answer = line;
-        } else if (line.startsWith("해설")) {
-            parsedData.explanation = line;
+            // Handle answer submission
+            document.getElementById('submit-answer').onclick = function() {
+                const selectedChoice = document.querySelector('input[name="choice"]:checked').value;
+                const answerNumber = extractAnswerNumber(data["정답"]);
+
+                if (selectedChoice === answerNumber) {
+                    document.getElementById('result').innerText = "정답입니다!";
+                } else {
+                    document.getElementById('result').innerText = "오답입니다!";
+                }
+
+                document.getElementById('explanation').innerText = data["해설"];
+            };
         }
+    })
+    .catch(error => {
+        document.getElementById('news-titles').innerText = '퀴즈 생성에 실패했습니다.';
+        console.error('Error:', error);
     });
-
-    return parsedData;
-}
-
-function displayNewsTitles(titles) {
-    const newsTitlesDiv = document.getElementById('news-titles');
-    newsTitlesDiv.innerHTML = '';
-    titles.forEach(title => {
-        const p = document.createElement('p');
-        p.textContent = title;
-        newsTitlesDiv.appendChild(p);
-    });
-}
-
-function displayQuiz(quizData) {
-    document.getElementById('question').textContent = quizData.question;
-    const choicesDiv = document.getElementById('choices');
-    choicesDiv.innerHTML = '';
-    quizData.choices.forEach(choice => {
-        const label = document.createElement('label');
-        label.textContent = choice;
-        const radio = document.createElement('input');
-        radio.type = 'radio';
-        radio.name = 'quiz-choice';
-        radio.value = choice.split('.')[0];
-        choicesDiv.appendChild(label);
-        choicesDiv.appendChild(radio);
-        choicesDiv.appendChild(document.createElement('br'));
-    });
-    document.getElementById('quiz-container').classList.remove('hidden');
-}
-
-document.getElementById('submit-answer').addEventListener('click', () => {
-    const selectedChoice = document.querySelector('input[name="quiz-choice"]:checked');
-    if (selectedChoice) {
-        const selectedValue = selectedChoice.value;
-        checkAnswer(selectedValue);
-    }
 });
-
-async function checkAnswer(selectedValue) {
-    const resultDiv = document.getElementById('result');
-    const explanationDiv = document.getElementById('explanation');
-    const quizResponse = await fetch('YOUR_API_ENDPOINT');  // 필요한 경우 API 요청 수정
-    const quizData = await quizResponse.json();
-
-    const answerNumber = extractAnswerNumber(quizData.answer);
-    if (selectedValue == answerNumber) {
-        resultDiv.textContent = "Correct!";
-        resultDiv.classList.add('success');
-    } else {
-        resultDiv.textContent = "Incorrect!";
-        resultDiv.classList.add('error');
-    }
-
-    explanationDiv.textContent = quizData.explanation;
-}
 
 function extractAnswerNumber(answerText) {
     const match = answerText.match(/정답\s*:\s*(\d)/);

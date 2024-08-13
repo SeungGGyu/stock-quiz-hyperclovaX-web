@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Quiz Generator</title>
-    <link rel="stylesheet" href="styles/quiz.css">
+    <link rel="stylesheet" href="../style.css">
+    <lik
 </head>
 <body>
     <header>
@@ -16,21 +17,25 @@
         </nav>
     </header>
     <main>
-        <div class="container">
+        <div id = "quiz-generator">
             <h1>주식 퀴즈에 도전하세요!</h1>
             <p>가장 최신의 뉴스로 생성한 퀴즈를 풀며</br>실시간 주식 시장을 파악합시다!</p>
-            <div class="form-group">
-                <label for="age">투자자 나이:</label>
-                <input type="number" id="age" min="0" max="120" value="25">
+
+            <div id = "user-input">
+                <div class="form-group">
+                    <label for="age">투자자 나이:</label>
+                    <input type="number" id="age" placeholder = "당신의 나이를 입력하세요!" min="0" max="120" value="25">
+                </div>
+                <div class="form-group">
+                    <label for="year">투자 경력 (년):</label>
+                    <input type="number" id="year" placeholder = "총 투자경력을 입력하세요!" min="0" max="100" value="1">
+                </div>
+                <div class="form-group">
+                    <label for="keyword">보유 종목: </label>
+                    <input type="text" id="keyword" placeholder="퀴즈를 풀고자하는 보유종목을 입력하세요">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="year">투자 경력 (년):</label>
-                <input type="number" id="year" min="0" max="100" value="1">
-            </div>
-            <div class="form-group">
-                <label for="keyword">보유 종목: </label>
-                <input type="text" id="keyword" placeholder="Enter owned stock">
-            </div>
+           
             <button id="generate-quiz">퀴즈 생성 시작</button>
             <div id="news-titles"></div>
             <div id="quiz-container" class="hidden">
@@ -42,7 +47,8 @@
             </div>
             <div id="news-links"></div>
         </div>
+  
     </main>
-    <script src="scripts/quiz.js"></script>
+    <script src="../scripts/quiz.js"></script>
 </body>
 </html>
