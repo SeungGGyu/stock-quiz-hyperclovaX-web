@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
 import time
@@ -6,31 +7,9 @@ import json
 import re
 
 app = Flask(__name__)
+CORS(app)
 
-class CompletionExecutor:
-    def __init__(self, host, api_key, api_key_primary_val, request_id):
-        self._host = host
-        self._api_key = api_key
-        self._api_key_primary_val = api_key_primary_val
-        self._request_id = request_id
-
-    def execute(self, completion_request):
-        headers = {
-            'X-NCP-CLOVASTUDIO-API-KEY': self._api_key,
-            'X-NCP-APIGW-API-KEY': self._api_key_primary_val,
-            'X-NCP-CLOVASTUDIO-REQUEST-ID': self._request_id,
-            'Content-Type': 'application/json; charset=utf-8',
-            'Accept': 'text/event-stream'
-        }
-
-        with requests.post(self._host + '/testapp/v1/tasks/iqsmk52h/chat-completions',
-                           headers=headers, json=completion_request, stream=True) as r:
-            event_stream_data = []
-            for line in r.iter_lines():
-                if line:
-                    event_stream_data.append(line.decode("utf-8"))
-            return event_stream_data
-
+# 필요한 함수 및 클래스 정의
 def get_search_results(keyword):
     response = requests.get(f"https://search.naver.com/search.naver?where=news&sm=tab_jum&query={keyword}&sort=0&pd=1d")
     html = response.text
@@ -77,6 +56,30 @@ def collect_news_data(keyword):
             time.sleep(0.3)
 
     return titles, contents, links
+
+class CompletionExecutor:
+    def __init__(self, host, api_key, api_key_primary_val, request_id):
+        self._host = host
+        self._api_key = api_key
+        self._api_key_primary_val = api_key_primary_val
+        self._request_id = request_id
+
+    def execute(self, completion_request):
+        headers = {
+            'X-NCP-CLOVASTUDIO-API-KEY': self._api_key,
+            'X-NCP-APIGW-API-KEY': self._api_key_primary_val,
+            'X-NCP-CLOVASTUDIO-REQUEST-ID': self._request_id,
+            'Content-Type': 'application/json; charset=utf-8',
+            'Accept': 'text/event-stream'
+        }
+
+        with requests.post(self._host + '/testapp/v1/tasks/iqsmk52h/chat-completions',
+                           headers=headers, json=completion_request, stream=True) as r:
+            event_stream_data = []
+            for line in r.iter_lines():
+                if line:
+                    event_stream_data.append(line.decode("utf-8"))
+            return event_stream_data
 
 def parse_event_stream(stream):
     last_message_content = None
@@ -165,6 +168,10 @@ def generate_quiz():
         event_stream_data = completion_executor.execute(request_data)
         response = parse_event_stream(event_stream_data)
         parsed_response = parse_response(response)
+        
+        # titles와 links 데이터를 parsed_response에 추가
+        parsed_response['titles'] = titles
+        parsed_response['links'] = links
         
         return jsonify(parsed_response)
     else:

@@ -2,20 +2,20 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
     const age = document.getElementById('age').value;
     const year = document.getElementById('year').value;
     const keyword = document.getElementById('keyword').value;
-    
+    console.log("사용자 입력값 출력 :", age, year, keyword)
     if (keyword === "" || age === "" || year === "") {
         alert("모든 필드를 입력하세요");
         return;
     }
 
     // Clear previous results
-    document.getElementById('news-titles').innerHTML = "";
+    document.getElementById('news-titles').innerText = "";
     document.getElementById('quiz-container').classList.add('hidden');
 
     // Display loading message
     document.getElementById('news-titles').innerText = "퀴즈를 생성하는 중입니다...";
 
-    fetch('/generate_quiz', {
+    fetch('http://localhost:5000/generate_quiz', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -27,6 +27,7 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
         if (data.error) {
             document.getElementById('news-titles').innerText = data.error;
         } else {
+            console.log(response)
             // Display the quiz
             document.getElementById('quiz-container').classList.remove('hidden');
             document.getElementById('news-titles').innerHTML = ""; // Clear loading message
