@@ -1,5 +1,5 @@
 /* 전체 문서에 적용되는 기본 스타일 */
-
+/*폰트 설정*/
 @font-face {
 	font-family: 'URWGothic';
 	src: local('URWGothic'), url(assets/URWGothic-BookOblique.ttf) format('opentype');
@@ -8,10 +8,25 @@
 	font-family: 'TransRobotics';
 	src: local('TransRobotics'), url(assets/SF-TransRoboticsExtendedBoldItalic.ttf) format('opentype');
 }
+@font-face {
+	font-family: 'Pretendard-ExtraBold';
+	src: local('Pretendard-ExtraBold'), url(assets/Pretendard-ExtraBold.otf) format('opentype');
+}
+
+@font-face {
+	font-family: 'Pretendard-SemiBold';
+	src: local('Pretendard-SemiBold'), url(assets/Pretendard-SemiBold.otf) format('opentype');
+}
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src: local('Pretendard-Regular'), url(assets/Pretendard-Regular.otf) format('opentype');
+}
+
+/*문서 기본 스타일 설정*/
 body{    
     background-image: url('assets/bg.png');
     background-size : 100%;
-    background-repeat : no-repeat;
+    background-repeat : repeat-y;
     background-attachment : fixed;
 }
 
@@ -67,34 +82,118 @@ nav a:hover {
 h1, p{
     color : #fafbfd;
 }
-/*home.js*/
+button {
+    background-color: #164630;
+    width: 200px;
+    color: white;
+    padding: 10px 20px; /* 안쪽 여백 설정 */
+    border: none; /* 테두리 제거 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    cursor: pointer; /* 커서 모양 변경 */
+    font-size: 16px; /* 글꼴 크기 설정 */
+    margin-bottom : 30px;
+    background: linear-gradient(90deg, #20687C 0%, #83a2a9 67%, #20687C 100%);
+}
+
+
+
+/*home화면*/
 .title{
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    height: 100vh;
     margin-top: 120px;
+    margin-bottom : 100px;
 }
 #home-main-txt{
-    font-family:  'URWGothic';
-    font-size : 3em;
+    font-family: 'URWGothic';
+    font-size : 100px;
     color: #fafbfd;
-    font-weight: bold;
     margin-bottom: 20px;
+    margin-left : -20%;
 }
-
 #home-description {
-    font-size: 1.2em; /* 설명 텍스트 크기 조정 */
+    font-family:'Pretendard-SemiBold';
+    font-size: 25px; 
     line-height: 1.5em;
     color: #b0b0b0;
-
+    margin-left : -20%;
 }
+div.pages{
+    width : 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items : center;
+}
+a{
+    text-decoration: none;
+}
+.page {
+    flex: 1;
+    width: auto;
+    height:450px;
+    padding: 20px;
+    border-radius: 16px;
+    border: 2px solid transparent;
+    background: linear-gradient(180deg, #3c3b3b 0%, #535457 0%, rgba(118, 117, 117, 0) 49%, #565555 100%);
+    text-align: center;
+    margin: 20px;
+}
+.page:hover {
+    transform: scale(1.05); 
+    border-color: #3ED5DD; 
+}
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
+    background-color: #171717;
+    border-radius: 50%;
+    margin: 0 auto 16px; 
+    position: relative; 
+}
+.icon img {
+    width: 56px;
+    height: 56px;
+    position: absolute;
+}
+.page:hover .icon img.old-icon {
+    opacity: 0; 
+}
+.page:hover .icon img.new-icon {
+    opacity: 1; 
+}
+hr {
+    border: none; 
+    height: 1.5px;
+    background-color: #3ED5DD; 
+    margin-bottom : 35px;
+}
+div.page-title {
+    font-family : 'Pretendard-SemiBold';
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color : #f8f8f6;
+}
+
+.page-description {
+    font-family : 'Pretendard-Regular';
+    text-align:start;
+    margin-top : 20px;
+    font-size: 20px;
+    color: #B0B0B0;
+}
+
 
 
 
 /*quiz화면*/
 #quiz-generator {
-    background: linear-gradient(90deg,#323335 0%,#777879 16%,#CCCCCC 37%, #FFFFFF 49%, 
+    background: linear-gradient(130deg,#323335 0%,#777879 16%,#6f6f6f 37%, #817e7e 49%, 
         #5A5A5A 84%,#171717 100%);
     color: white;
     background-color: #1d1d1f; 
@@ -133,18 +232,6 @@ input[type="number"],input[type="text"] {
     background-color: #e2e9e2;
 }
 
-button {
-    background-color: #164630;
-    width: 400px;
-    color: white;
-    padding: 10px 20px; /* 안쪽 여백 설정 */
-    border: none; /* 테두리 제거 */
-    border-radius: 5px; /* 모서리 둥글게 설정 */
-    cursor: pointer; /* 커서 모양 변경 */
-    font-size: 16px; /* 글꼴 크기 설정 */
-    margin: 0 10px; /* 좌우 여백 설정 */
-    background: linear-gradient(90deg, #20687C 0%, #D7E8EC 67%, #20687C 100%);
-}
 
 
 button:hover {
