@@ -39,18 +39,18 @@ main{
 
 header{
     height: 60px;
-    display: flex; /* Flex 컨테이너로 설정 */
-    justify-content: space-between; /* 좌우 끝에 요소 배치 */
-    align-items: center; /* 수직 중앙 정렬 */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
     background-color : none;
     margin-right: 50px;
-    margin-top : 5px;
+    margin-top : 2;
     margin-left : 50px;
 }
 
 #webName{
     font-family : 'TransRobotics';
-    font-size: 40px;
+    font-size: 30px;
     padding: 0%
 }
 
@@ -79,29 +79,38 @@ nav a:hover {
     background-color: #1AA7AD; /* 호버 시 버튼에 적용할 색상 */
 }
 
-h1, p{
+h1, h2, h3{
     color : #fafbfd;
+    font-family : 'Pretendard-Semibold';
+} 
+p{
+    color : #fafbfd;
+    font-family : 'Pretendard-Regular';
 }
 button {
-    background-color: #164630;
-    width: 200px;
+    background-color: #1AA7AD;
+    width: 150px;
     color: white;
     padding: 10px 20px; /* 안쪽 여백 설정 */
     border: none; /* 테두리 제거 */
-    border-radius: 5px; /* 모서리 둥글게 설정 */
+    border-radius: 30px; /* 모서리 둥글게 설정 */
     cursor: pointer; /* 커서 모양 변경 */
-    font-size: 16px; /* 글꼴 크기 설정 */
+    font-size: 12px; /* 글꼴 크기 설정 */
     margin-bottom : 30px;
-    background: linear-gradient(90deg, #20687C 0%, #83a2a9 67%, #20687C 100%);
+    box-shadow: 0 0 8px rgba(0, 230, 184, 0.4),
+                0 0 10px rgba(0, 230, 184, 0.2),
+                inset 0 0 5px rgba(255, 255, 255, 0.2);
 }
+
+button:hover {
+    background-color: #29e0e6;
+}
+
 
 
 
 /*home화면*/
 .title{
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
     margin-top: 120px;
     margin-bottom : 100px;
 }
@@ -111,16 +120,17 @@ button {
     color: #fafbfd;
     margin-bottom: 20px;
     margin-left : -20%;
+    line-height : 0.9em;
 }
 #home-description {
-    font-family:'Pretendard-SemiBold';
-    font-size: 25px; 
-    line-height: 1.5em;
+    font-family:'Pretendard-Regular';
+    font-size: 24px; 
+    line-height: 1.2em;
     color: #b0b0b0;
     margin-left : -20%;
 }
 div.pages{
-    width : 90%;
+    width : 80%;
     display: flex;
     flex-direction: row;
     justify-content:center;
@@ -166,24 +176,26 @@ a{
 .page:hover .icon img.new-icon {
     opacity: 1; 
 }
+
+button:hover {
+    background-color: #29e0e6;
+}
 hr {
     border: none; 
     height: 1.5px;
     background-color: #3ED5DD; 
-    margin-bottom : 35px;
 }
 div.page-title {
     font-family : 'Pretendard-SemiBold';
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 20px;
     margin-bottom: 20px;
     color : #f8f8f6;
 }
 
 .page-description {
     font-family : 'Pretendard-Regular';
-    text-align:start;
-    margin-top : 20px;
+    text-align:end;
+    margin-top : 16px;
     font-size: 20px;
     color: #B0B0B0;
 }
@@ -192,25 +204,47 @@ div.page-title {
 
 
 /*quiz화면*/
-#quiz-generator {
-    background: linear-gradient(130deg,#323335 0%,#777879 16%,#6f6f6f 37%, #817e7e 49%, 
-        #5A5A5A 84%,#171717 100%);
-    color: white;
-    background-color: #1d1d1f; 
-    border: 2px solid #c6c9bc; 
-    border-radius: 10px; 
-    box-shadow: 0 0 10px #171415; 
-    padding: 20px;
-    width: 800px;
-    height: 600px;
+.quiz-layout {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center; 
-    position: absolute;
-
+    justify-content: space-between;
+    width: 95%;
+}
+.left-section {
+    width: 30%;
+    flex-shrink : 0;
 }
 
+.right-section {
+    width:60%;
+    margin-right : 30px;
+}
+.quiz-instruction{
+    margin-left : 10px;
+}
+.quiz-generator {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 15px;
+    color: #d1d1d1;
+    font-size: 14px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4),
+                inset 0 0 15px rgba(0, 255, 255, 0.2);
+    position: relative;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    width : 100%;
+    margin: 20px 60px 20px auto;
+}
+.quiz-generator::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 15px;
+    border: 2px solid silver; 
+    pointer-events: none;
+}
 
 .form-group {
     height : 50px;
@@ -218,8 +252,12 @@ div.page-title {
 }
 
 label {
+    font-family : 'Pretendard-Reuglar';
     display: block;
     margin-bottom: 8px;
+}
+.quiz{
+    font-family : 'Pretendard-Reuglar';
 }
 
 input[type="number"],input[type="text"] {
@@ -231,11 +269,65 @@ input[type="number"],input[type="text"] {
     box-sizing: border-box;
     background-color: #e2e9e2;
 }
+/* 숨겨진 기본 라디오 버튼 */
+input[type="radio"] {
+    display: none;
+}
 
+/* 커스텀 라디오 버튼을 위한 스타일 */
+.radio-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 16px; /* 텍스트 크기 */
+    color: #fff; /* 텍스트 색상 */
+}
 
+.custom-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #3ED5DD; 
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.6), inset 0 0 3px rgba(0, 255, 255, 0.4);
+}
 
-button:hover {
-    background-color: #42be86;
+.radio-container input:checked + .custom-radio {
+    background-color: #3ED5DD;
+}
+
+.radio-container input:checked + .custom-radio::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: #000; /* 선택된 라디오 버튼 내부 색상 */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.correct {
+    color: #e7c60b; 
+    font-weight: bold;
+}
+
+.incorrect {
+    color: #FF6347; 
+    font-weight: bold;
+}
+#news-titles a {
+    color: #B0B0B0; 
+    text-decoration: none; 
+    display: block; 
+    line-height: 1.8; /
+}
+
+#news-titles a:hover {
+    color: #ffffff; /* 링크에 마우스를 올렸을 때 민트색으로 변경 */
 }
 
 .hidden {

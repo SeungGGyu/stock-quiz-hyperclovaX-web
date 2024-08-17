@@ -90,7 +90,7 @@ def parse_event_stream(stream):
                 last_message_content = data["message"]["content"]
     return last_message_content
 
-def parse_response(data):
+def parse_response(data, titles, links):
     lines = data.split('\n')
     parsed_data = {
         "오늘의 질문": "",
@@ -116,7 +116,7 @@ def parse_response(data):
             parsed_data["정답"] = line
         elif line.startswith("해설"):
             parsed_data["해설"] = line
-    return parsed_data
+    return parsed_data, titles, links
 
 @app.route('/generate_quiz', methods=['POST'])
 def generate_quiz():
@@ -167,7 +167,7 @@ def generate_quiz():
 
         event_stream_data = completion_executor.execute(request_data)
         response = parse_event_stream(event_stream_data)
-        parsed_response = parse_response(response)
+        parsed_response, titles, links = parse_response(response, titles, links)
         
         # titles와 links 데이터를 parsed_response에 추가
         parsed_response['titles'] = titles
