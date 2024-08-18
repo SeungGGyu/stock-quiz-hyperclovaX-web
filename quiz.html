@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Quiz Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="glossary.html">용어 사전</a>
+            <a href="community.html">Community</a>
+        </nav>
+    </header>
+    <main>
+        <div class="quiz-layout">
+            <div class="left-section">
+                <div class = "quiz-instruction">
+                    <h2>주식 퀴즈에 도전하세요!</h2>
+                    <p><span style="color: #3ED5DD;">아래에 값을 입력</span>하고 </br>가장 최신의 기사를 통해 생성된 퀴즈를 풀며<br>실시간 주식 시장을 파악합시다!</p>
+                </div>
+                <div class="quiz-generator">
+                    <div id="user-input">
+                        <div class="form-group">
+                            <label for="age">투자자 나이:</label>
+                            <input type="number" id="age" placeholder="당신의 나이를 입력하세요!" min="0" max="120" value="25">
+                        </div>
+                        <div class="form-group">
+                            <label for="year">투자 경력 (년):</label>
+                            <input type="number" id="year" placeholder="총 투자경력을 입력하세요!" min="0" max="100" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="keyword">보유 종목: </label>
+                            <input type="text" id="keyword" placeholder="퀴즈를 풀고자하는 보유종목을 입력하세요">
+                        </div>
+                        <button id="generate-quiz">퀴즈 생성 시작</button>
+                    </div>
+                </div>
+            </div>
+            <div class="right-section hidden">
+                <div class="quiz-generator" >
+                    <h2 id="question"></h2>
+                </div>
+                <div class="quiz-generator" >
+                    <p style = "color:  #3ED5DD;">정답을 고르고, 제출 버튼을 누르세요</p>
+                    <div class = "quiz" id="choices"></div>
+                    <button class = "quiz" id="submit-answer">제출</button>
+                    <div class = "quiz" id="result"></div>
+                    <div class = "quiz" id="explanation"></div>
+                </div>
+            <div class="quiz-generator">
+                <h2>ARTICLES</h2>
+                <p style = "color:  #3ED5DD;">퀴즈 답안을 제출하고, 퀴즈 생성에 사용된 최신 뉴스를 확인하세요</p>
+                <div id= "news-titles"></div>
+                <div id="news-links"></div>
+            </div>
+        </div>
+    </main>
+    <script src="scripts/quiz.js"></script>
+</body>
+</html>
