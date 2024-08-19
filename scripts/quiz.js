@@ -19,10 +19,7 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
     document.querySelector('.right-section').classList.remove('hidden');
     document.getElementById('question').innerText = "퀴즈를 생성하는 중입니다...";
 
-    // 서버 URL을 로컬 또는 Heroku에 맞게 설정
-    const serverUrl = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://smart-stock-c661884f5077.herokuapp.com';
-
-    fetch(`${serverUrl}/generate_quiz`, {
+    fetch('https://smart-stock-c661884f5077.herokuapp.com/generate_quiz', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
