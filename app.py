@@ -13,7 +13,6 @@ CORS(app)
 def index():
     return "Welcome to the Smart Stock Quiz API"
 
-# 필요한 함수 및 클래스 정의
 def get_search_results(keyword):
     response = requests.get(f"https://search.naver.com/search.naver?where=news&sm=tab_jum&query={keyword}&sort=0&pd=1d")
     html = response.text
@@ -173,7 +172,7 @@ def generate_quiz():
         response = parse_event_stream(event_stream_data)
         parsed_response, titles, links = parse_response(response, titles, links)
         
-        # titles와 links 데이터를 parsed_response에 추가
+        # 기사 링크 제공을 위해 title, links도 같이 프론트로 보내기
         parsed_response['titles'] = titles
         parsed_response['links'] = links
         

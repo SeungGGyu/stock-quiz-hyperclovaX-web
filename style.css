@@ -22,7 +22,7 @@
 	src: local('Pretendard-Regular'), url(assets/Pretendard-Regular.otf) format('opentype');
 }
 
-/*문서 기본 스타일 설정*/
+/*문서 기본 스타일*/
 body{    
     background-image: url('assets/bg.png');
     background-size : 100%;
@@ -61,9 +61,9 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: rgba(206, 249, 254, 0.13); /* 반투명 배경색 */
-    border-radius: 50px; /* 모서리를 둥글게 */
-    backdrop-filter: blur(50px); /* 배경 블러 효과 */
+    background-color: rgba(206, 249, 254, 0.13); 
+    border-radius: 50px; 
+    backdrop-filter: blur(50px); 
 }
 
 nav a{
@@ -76,7 +76,7 @@ nav a{
 }
 
 nav a:hover {
-    background-color: #1AA7AD; /* 호버 시 버튼에 적용할 색상 */
+    background-color: #1AA7AD; 
 }
 
 h1, h2, h3{
@@ -91,11 +91,11 @@ button {
     background-color: #1AA7AD;
     width: 150px;
     color: white;
-    padding: 10px 20px; /* 안쪽 여백 설정 */
-    border: none; /* 테두리 제거 */
-    border-radius: 30px; /* 모서리 둥글게 설정 */
-    cursor: pointer; /* 커서 모양 변경 */
-    font-size: 12px; /* 글꼴 크기 설정 */
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    font-size: 12px; 
     margin-bottom : 30px;
     box-shadow: 0 0 8px rgba(0, 230, 184, 0.4),
                 0 0 10px rgba(0, 230, 184, 0.2),
@@ -269,7 +269,8 @@ input[type="number"],input[type="text"] {
     box-sizing: border-box;
     background-color: #e2e9e2;
 }
-/* 숨겨진 기본 라디오 버튼 */
+
+/* 기본 라디오 버튼 숨겨야지 */
 input[type="radio"] {
     display: none;
 }
@@ -280,8 +281,8 @@ input[type="radio"] {
     align-items: center;
     margin-bottom: 10px;
     cursor: pointer;
-    font-size: 16px; /* 텍스트 크기 */
-    color: #fff; /* 텍스트 색상 */
+    font-size: 16px; 
+    color: #fff; 
 }
 
 .custom-radio {
@@ -303,7 +304,7 @@ input[type="radio"] {
     content: '';
     width: 10px;
     height: 10px;
-    background-color: #000; /* 선택된 라디오 버튼 내부 색상 */
+    background-color: #000; 
     border-radius: 50%;
     position: absolute;
     top: 50%;
@@ -327,7 +328,7 @@ input[type="radio"] {
 }
 
 #news-titles a:hover {
-    color: #ffffff; /* 링크에 마우스를 올렸을 때 민트색으로 변경 */
+    color: #ffffff; 
 }
 
 .hidden {
@@ -374,8 +375,8 @@ input[type="radio"] {
 }
 
 .card:hover {
-    transform: scale(1.02); /* Slightly increase the size */
-    box-shadow: 0 4px 15px rgba(36, 223, 230, 0.5); /* Sky blue shadow */
+    transform: scale(1.02); 
+    box-shadow: 0 4px 15px rgba(36, 223, 230, 0.5); 
 }
 
 .card-title {

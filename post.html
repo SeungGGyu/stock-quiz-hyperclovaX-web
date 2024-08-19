@@ -19,7 +19,7 @@
         <div class="container">
             <div id="post-details"></div>
             <div class="input-group">
-                <label for="comment">Comment</label>
+                <label for="comment">댓글쓰기</label>
                 <textarea id="comment" placeholder="여기에 댓글을 작성하세요"></textarea>
             </div>
             <button class="button" onclick="addComment()">댓글 등록</button>
@@ -45,8 +45,7 @@
 
         function renderComments() {
             const commentsContainer = document.getElementById('comments');
-            commentsContainer.innerHTML = ''; // Clear existing comments
-
+            commentsContainer.innerHTML = ''; 
             post.comments.forEach(comment => {
                 const commentElement = document.createElement('div');
                 commentElement.className = 'comment';
@@ -85,7 +84,7 @@
             localStorage.setItem('posts', JSON.stringify(posts));
             renderComments();
 
-            // Update the comment count in the post details
+            // 댓글 개수 업데이트
             const commentsCountElement = document.querySelector('.comments-count');
             if (commentsCountElement) {
                 commentsCountElement.textContent = post.comments.length;
@@ -93,15 +92,14 @@
                 console.error('댓글 개수를 알 수 없습니다');
             }
 
-            // Clear the input field and display the placeholder
-            document.getElementById('comment').value = ''; // Clear the input field
+            document.getElementById('comment').value = ''; 
         }
 
         function likePost() {
              post.likes++;
              localStorage.setItem('posts', JSON.stringify(posts));
 
-            // Directly update the likes count in the DOM without re-rendering the whole post
+            // 좋아요 개수 업데이트
             const likesElement = document.querySelector('.likes-count');
             likesElement.textContent = `좋아요 ${post.likes}`;
         }

@@ -9,14 +9,13 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
         return;
     }
 
-    // Clear previous results
     document.getElementById('question').innerText = "";
     document.getElementById('news-titles').innerHTML = "";
     document.getElementById('choices').innerHTML = "";
     document.getElementById('result').innerText = "";
     document.getElementById('explanation').innerText = "";
 
-    // Display loading message
+    // 로딩메세지
     document.querySelector('.right-section').classList.remove('hidden');
     document.getElementById('question').innerText = "퀴즈를 생성하는 중입니다...";
 
@@ -37,10 +36,9 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
         } else {
             console.log(data);
             
-            // Clear loading message
             document.getElementById('question').innerText = data["오늘의 질문"];
 
-            // Display the quiz choices
+            // 선택지 화면에 나오게
             const choicesContainer = document.getElementById('choices');
             choicesContainer.innerHTML = '';
             for (let i = 1; i <= 4; i++) {
@@ -54,7 +52,7 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
                 choicesContainer.appendChild(choice);
             }
             
-            // Handle answer submission
+            // 정답체크
             document.getElementById('submit-answer').onclick = function() {
                 const selectedChoice = document.querySelector('input[name="choice"]:checked').value;
                 const answerNumber = extractAnswerNumber(data["정답"]);
@@ -72,16 +70,15 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
 
                 document.getElementById('explanation').innerText = data["해설"];
 
-                // Display the news titles with links after answer submission
+                // 정답 제출 이후에 기사 링크 보이도록
                 const newsTitlesContainer = document.getElementById('news-titles');
-                newsTitlesContainer.innerHTML = ''; // 기존 내용을 초기화
+                newsTitlesContainer.innerHTML = ''; 
                 data.titles.forEach((title, index) => {
                     const linkElement = document.createElement('a');
                     linkElement.href = data.links[index];
                     linkElement.target = "_blank";
                     linkElement.innerText = title;
                 
-                    // CSS에서 지정된 스타일을 적용하기 위해 클래스 추가 (선택 사항)
                     linkElement.classList.add('news-link');
                 
                     newsTitlesContainer.appendChild(linkElement);

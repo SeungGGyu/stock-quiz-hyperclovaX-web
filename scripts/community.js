@@ -1,13 +1,13 @@
 function renderPosts() {
     const postsContainer = document.getElementById('posts');
-    postsContainer.innerHTML = '';  // Clear existing content
+    postsContainer.innerHTML = ''; 
 
     posts.forEach(post => {
         const card = document.createElement('div');
         card.className = 'card';
         card.setAttribute('data-id', post.id);
 
-        // Navigate to post details when clicking the card (except delete button)
+        // 글을 클릭하면 글에 대해서 자세히 볼 수 있는 페이지로 감
         card.onclick = function(event) {
             if (!event.target.classList.contains('delete-button')) {
                 window.location.href = `post.html?id=${post.id}`;
@@ -26,33 +26,32 @@ function renderPosts() {
         footer.className = 'card-footer';
         footer.innerHTML = `${post.date} | 댓글 ${post.comments.length} | 좋아요 ${post.likes}`;
 
-        // Create delete button
+    
         const deleteButton = document.createElement('button');
         deleteButton.textContent = '삭제';
         deleteButton.className = 'delete-button';
         deleteButton.style.marginTop = '10px';
         deleteButton.onclick = function(event) {
-            event.stopPropagation(); // Prevent card click event
+            event.stopPropagation(); //
             deletePost(post.id);
         };
 
         card.appendChild(title);
         card.appendChild(content);
         card.appendChild(footer);
-        card.appendChild(deleteButton);  // Add delete button to card
+        card.appendChild(deleteButton);  
 
         postsContainer.appendChild(card);
     });
 }
 
-// Function to delete a post
+//삭제 구현
 function deletePost(postId) {
     posts = posts.filter(post => post.id !== postId);
-    localStorage.setItem('posts', JSON.stringify(posts));  // Update localStorage
-    renderPosts();  // Re-render posts after deletion
+    localStorage.setItem('posts', JSON.stringify(posts));  
+    renderPosts();  
 }
 
-// Load posts from localStorage when the page loads
 window.onload = function() {
     let storedPosts = JSON.parse(localStorage.getItem('posts'));
     if (storedPosts) {
