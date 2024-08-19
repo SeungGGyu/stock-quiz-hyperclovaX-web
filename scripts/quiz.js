@@ -3,6 +3,7 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
     const year = document.getElementById('year').value;
     const keyword = document.getElementById('keyword').value;
     console.log("사용자 입력값 출력 :", age, year, keyword);
+    
     if (keyword === "" || age === "" || year === "") {
         alert("모든 필드를 입력하세요");
         return;
@@ -19,7 +20,10 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
     document.querySelector('.right-section').classList.remove('hidden');
     document.getElementById('question').innerText = "퀴즈를 생성하는 중입니다...";
 
-    fetch('https://smart-stock-c661884f5077.herokuapp.com/generate_quiz', {
+    // 서버 URL을 로컬 또는 Heroku에 맞게 설정
+    const serverUrl = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://smart-stock-c661884f5077.herokuapp.com';
+
+    fetch(`${serverUrl}/generate_quiz`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -58,12 +62,12 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
 
                 if (selectedChoice === answerNumber) {
                     resultElement.innerText = "정답입니다!";
-        resultElement.classList.remove('incorrect');
-        resultElement.classList.add('correct');
+                    resultElement.classList.remove('incorrect');
+                    resultElement.classList.add('correct');
                 } else {
                     resultElement.innerText = "오답입니다!";
-        resultElement.classList.remove('correct');
-        resultElement.classList.add('incorrect');
+                    resultElement.classList.remove('correct');
+                    resultElement.classList.add('incorrect');
                 }
 
                 document.getElementById('explanation').innerText = data["해설"];
