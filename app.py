@@ -9,6 +9,10 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+@app.route("/")
+def index():
+    return "Welcome to the Smart Stock Quiz API"
+
 # 필요한 함수 및 클래스 정의
 def get_search_results(keyword):
     response = requests.get(f"https://search.naver.com/search.naver?where=news&sm=tab_jum&query={keyword}&sort=0&pd=1d")
