@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import json
-import re
+import os 
 
 app = Flask(__name__)
 CORS(app)
@@ -178,4 +178,4 @@ def generate_quiz():
         return jsonify({"error": "No news articles found"}), 404
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
