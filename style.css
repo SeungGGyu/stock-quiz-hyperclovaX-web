@@ -388,6 +388,9 @@ input[type="radio"] {
     font-size: 14px;
     color: #555;
     margin-bottom: 10px;
+    white-space : nowrap;
+    text-overflow: ellipsis;
+    overflow : hidden;
 }
 
 .card-footer {
@@ -451,6 +454,7 @@ input[type="radio"] {
 #post-details{
     border-color: #fff;
     border-width : 2px;
+    white-space : pre-line;
 }
 
 #comment{

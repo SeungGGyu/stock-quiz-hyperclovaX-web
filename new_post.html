@@ -50,7 +50,7 @@
             const newPost = {
                 id: Date.now(),
                 title: title,
-                content: content,
+                content: content.replace(/\n/g, '<br>'), 
                 date: formattedDate,
                 comments: [],
                 likes: 0
