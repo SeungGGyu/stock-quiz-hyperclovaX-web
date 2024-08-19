@@ -333,3 +333,137 @@ input[type="radio"] {
 .hidden {
     display: none;
 }
+
+/*community 화면*/
+.main-community {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+}
+
+
+.left-community {
+    width: 30%;
+    flex-shrink : 0;
+    margin-top : 50px;
+}
+
+.right-community {
+    flex: 3;
+    width:60%;
+    margin-right : 30px;
+    overflow-y: auto;
+    overflow-x: visible;
+    padding-left : 10px;
+    padding-right: 10px;
+}
+
+.fixed-button {
+    position: sticky;
+    top: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.02); /* Slightly increase the size */
+    box-shadow: 0 4px 15px rgba(36, 223, 230, 0.5); /* Sky blue shadow */
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-content {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.card-footer {
+    font-size: 12px;
+    color: #888;
+    display: flex;
+    justify-content: space-between;
+}
+.delete-button {
+    background-color: #fff;
+    color: #888;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.form-container {
+    display: none;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.input-group textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+/*Post화면*/
+.container{
+    width : 75%;
+}
+
+#post-details{
+    border-color: #fff;
+    border-width : 2px;
+}
+
+#comment{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #e2e9e2;
+}
+.comment{
+    width : 80%;
+    background-color: rgba(216, 212, 212, 0.5); 
+    border-radius: 10px;
+}
+.comment-time{
+    color : 'black';
+}
