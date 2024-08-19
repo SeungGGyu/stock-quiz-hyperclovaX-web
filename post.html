@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Detail</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 id="webName"><span style="color: white;">stock</span><span style="color:#1AA7AD;">Smart</span></h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="community.html">Community</a>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div id="post-details"></div>
+            <div class="input-group">
+                <label for="comment">Comment</label>
+                <textarea id="comment" placeholder="여기에 댓글을 작성하세요"></textarea>
+            </div>
+            <button class="button" onclick="addComment()">댓글 등록</button>
+            <div id="comments"></div>
+        </div>
+    </main>
+    <script>
+        const postId = new URLSearchParams(window.location.search).get('id');
+        let posts = JSON.parse(localStorage.getItem('posts')) || [];
+        const post = posts.find(p => p.id == postId);
+
+        if (post) {
+            document.getElementById('post-details').innerHTML = `
+                <h2>${post.title}</h2>
+                <p>${post.content}</p>
+                <p>${post.date} | 댓글 <span class="comments-count">${post.comments.length}</span> | <span class="likes-count">좋아요 ${post.likes}</span></p>
+                <button class="button" onclick="likePost()">Like</button>
+            `;
+            renderComments();
+        } else {
+            document.getElementById('post-details').innerText = '등록된 글을 찾을 수 없습니다';
+        }
+
+        function renderComments() {
+            const commentsContainer = document.getElementById('comments');
+            commentsContainer.innerHTML = ''; // Clear existing comments
+
+            post.comments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.className = 'comment';
+                commentElement.innerHTML = `
+                    <p>${comment.text}</p>
+                    <div class="comment-footer">
+                        <span class="comment-time">${comment.time}</span>
+                    </div>
+                `;
+                commentsContainer.appendChild(commentElement);
+            });
+        }
+
+        function addComment() {
+            const commentText = document.getElementById('comment').value;
+
+            if (commentText === '') {
+                alert('Please enter a comment.');
+                return;
+            }
+
+            const now = new Date();
+            const formattedTime = now.getFullYear() + '-' + 
+                String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                String(now.getDate()).padStart(2, '0') + ' ' + 
+                String(now.getHours()).padStart(2, '0') + ':' + 
+                String(now.getMinutes()).padStart(2, '0') + ':' + 
+                String(now.getSeconds()).padStart(2, '0');
+
+            const newComment = {
+                text: commentText,
+                time: formattedTime
+            };
+
+            post.comments.push(newComment);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            renderComments();
+
+            // Update the comment count in the post details
+            const commentsCountElement = document.querySelector('.comments-count');
+            if (commentsCountElement) {
+                commentsCountElement.textContent = post.comments.length;
+            } else {
+                console.error('댓글 개수를 알 수 없습니다');
+            }
+
+            // Clear the input field and display the placeholder
+            document.getElementById('comment').value = ''; // Clear the input field
+        }
+
+        function likePost() {
+             post.likes++;
+             localStorage.setItem('posts', JSON.stringify(posts));
+
+            // Directly update the likes count in the DOM without re-rendering the whole post
+            const likesElement = document.querySelector('.likes-count');
+            likesElement.textContent = `좋아요 ${post.likes}`;
+        }
+    </script>
+</body>
+</html>
