@@ -123,6 +123,7 @@ def parse_response(data, titles, links):
 
 @app.route('/generate_quiz', methods=['POST'])
 def generate_quiz():
+    print("Request received at /generate_quiz")
     data = request.json
     age = data['age']
     year = data['year']

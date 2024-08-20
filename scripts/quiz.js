@@ -19,7 +19,7 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
     document.querySelector('.right-section').classList.remove('hidden');
     document.getElementById('question').innerText = "퀴즈를 생성하는 중입니다...";
    
-    fetch('http://10.50.75.147:5000//generate_quiz', {
+    fetch('https://smartstock-1f4093cebbc9.herokuapp.com/generate_quiz', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
