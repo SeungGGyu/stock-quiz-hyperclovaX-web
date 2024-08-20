@@ -18,8 +18,8 @@ document.getElementById('generate-quiz').addEventListener('click', function() {
     // 로딩메세지
     document.querySelector('.right-section').classList.remove('hidden');
     document.getElementById('question').innerText = "퀴즈를 생성하는 중입니다...";
-
-    fetch('https://smart-stock-c661884f5077.herokuapp.com/generate_quiz', {
+   
+    fetch('http://10.50.75.147:5000//generate_quiz', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
