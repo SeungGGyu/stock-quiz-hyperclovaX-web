@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,  render_template
 from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
@@ -9,9 +9,10 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/")
+@app.route('/')
 def index():
-    return "Welcome to the Smart Stock Quiz API"
+    quiz_api_url = os.environ.get('QUIZ_API_URL')
+    return render_template('index.html', quiz_api_url=quiz_api_url)
 
 def get_search_results(keyword):
     response = requests.get(f"https://search.naver.com/search.naver?where=news&sm=tab_jum&query={keyword}&sort=0&pd=1d")
@@ -163,10 +164,10 @@ def generate_quiz():
         }
 
         completion_executor = CompletionExecutor(
-            host='https://clovastudio.stream.ntruss.com',
-            api_key='NTA0MjU2MWZlZTcxNDJiY45r/DkTDk7oBmqKVrH2tgppYRF/3kCtv0bwtT7ihqUM',
-            api_key_primary_val='2vb3PzZVsMZcjwGY1yQG7xbuK0FqU7hrFGli34ou',
-            request_id='76902a7a-2232-400c-843f-65a8edfc8e46'
+            host=os.environ.get('HOST'),
+            api_key=os.environ.get('API_KEY'),
+            api_key_primary_val=os.environ.get('API_KEY_PRIMARY_VAL'),
+            request_id=os.environ.get('REQUEST_ID')
         )
 
         event_stream_data = completion_executor.execute(request_data)
